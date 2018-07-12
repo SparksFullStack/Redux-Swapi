@@ -1,13 +1,27 @@
 import /* we need our action types here*/ '../actions';
 const initialState = {
-  // define a few properties here.
-  // Array chars, Boolean fetching, Boolean fetched, null error.
+  chars: [],
+  fetching: false,
+  fetched: false,
+  error: null,
 };
+
 export const charsReducer = (state = initialState, action) => {
   switch (action.type) {
-    // Fill me in with the important reducers
-    // action types should be FETCHING, FETCHED, and ERROR
-    // your switch statement should handle all of these cases.
+    case "FETCHING":
+      console.log("Fetching State");
+      return { ...state, fetching: true };
+    case "FETCHED":
+      console.log("The state was fetched!", action.payload)
+      return {
+        ...state,
+        chars: action.payload,
+        fetching: false,
+        fetched: true,
+      }
+    case "ERROR":
+      console.log("There was an error")
+      return { ...state, fetching: false, error: action.payload}
     default:
       return state;
   }
